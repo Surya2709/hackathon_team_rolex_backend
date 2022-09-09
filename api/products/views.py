@@ -4,7 +4,7 @@ from uuid import uuid1
 import jwt
 
 from api.home.models import Product, Category
-from api.markets.models import Market
+from api.markets.models import Market, Product_Market_Mapping
 from api.products.models import ProductMarketMapping
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
@@ -147,6 +147,7 @@ def getTopSellingProducts():
 
 @product_api.route('/productSalesDetail', methods=['GET'])
 def productSalesDetail():
+
     res = {
         "product_name": "Wheat",
         "avg_sale_price_lower": "155.",
@@ -217,6 +218,31 @@ def get_product():
     else:
         return success('SUCCESS',[])
 
+
+@product_api.route('/getProdutDetails', methods=['POST'])
+def get_mapping_products():
+    data = request.json
+    products_id = data.get('products_id')
+    market_id = data.get('market_id')
+    result=[]
+    product=Product.query.filter_by(category_id=products_id).first()
+    if product:
+        product_list=Product_Market_Mapping.query.filter_by(product_id=product.id , market_id=market_id).first()
+        if product_list:
+            market_list=Market.query.filter_by(id=product_list.id).first()
+            if market_list:
+                for list_data in market_list:
+                    list={}
+                    list['id']=list_data.id
+                    result.append(list)
+                return success('success',[])
+            else:
+                return failure('failure',[])
+
+        else:
+            return failure('failure',[])
+    else:
+        return failure('failure',[])
 
 
   
