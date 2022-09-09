@@ -17,13 +17,7 @@ class Market(BaseModel):
     close_time = Column(DateTime(),nullable=True)
     is_open = Column(Boolean(),nullable=True)
 
-class ProductMarketMapping(BaseModel):
-    __tablename__ = 'product_market_mapping'
 
-    product_id = Column(String(50),nullable=True)
-    market_id = Column(String(50),nullable=True)
-    avg_price = Column(Integer(),nullable=True)
-    last_sold_price = Column(Float(),nullable=True)
 
 class Warehouses(BaseModel):
     __tablename__ = 'warehouses'
