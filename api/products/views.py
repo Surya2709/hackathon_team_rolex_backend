@@ -1,3 +1,4 @@
+from gzip import READ
 import traceback
 from uuid import uuid1
 import jwt
@@ -72,6 +73,73 @@ def topSellingProductPredictionGraph():
 
     return success("Success", res)
 
+
+
+@product_api.route('/getTopSellingProducts', methods=['GET'])
+def getTopSellingProducts():
+
+    res = {
+        "columns" : [
+        {
+            "title": "sample",
+            "dataIndex": "img",
+            "key": "img",
+            "width": "100px"
+        },
+        {
+            "title": "Product Name",
+            "dataIndex": "name",
+            "key": "name"
+        },
+        {
+            "title": "Category",
+            "dataIndex": "category",
+            "key": "category"
+        },
+        {
+            "title": "Sub Category",
+            "dataIndex": "subcategory",
+            "key": "subcategory"
+        },
+        {
+            "title": "Price",
+            "dataIndex": "price",
+            "key": "price"
+        },
+        {
+            "title": "Sold",
+            "dataIndex": "sold",
+            "key": "sold"
+        }
+        ],
+        "data": [
+        {
+            "img": "https://stylesatlife.com/wp-content/uploads/2018/05/cabbage-benefits.jpg.webp",
+            "name": "Cabbage",
+            "category": "Vegetable",
+            "subcategory": "Green Vegetable",
+            "price": "$0.5",
+            "sold": "$1.3"
+        },
+        {
+            "img": "https://5.imimg.com/data5/AK/RA/MY-68428614/apple-250x250.jpg",
+            "name": "Apple",
+            "category": "Fruit",
+            "subcategory": "",
+            "price": "$1.8",
+            "sold": "$2.1"
+        },
+        {
+            "img": "https://cdn.shopify.com/s/files/1/0592/9884/0756/products/Bangalorebluegrapes_9a4f5dc4-c11f-4bb7-802a-834bd86652c6_300x.jpg?v=1653647503",
+            "name": "Grapes",
+            "category": "Fruit",
+            "subcategory": "Black",
+            "price": "$2.2",
+            "sold": "$2.3"
+            }
+            ]
+        }
+    return success("success", res)
 
   
 
