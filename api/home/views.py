@@ -59,10 +59,10 @@ def getOverViewData():
                 "available_products" : available_product_query,
                 "market_name" : result['name'],
                 "market_id": result['id'],
-                "total_sales" : 5677687,
-                "total_expenses" : 8900,
+                "total_sales" : 4500,
+                "total_expenses" : 4500,
                 "total_products" : 89,
-                "todays_sales" :788898 ,
+                "todays_sales" :9088 ,
                 }
                 }
         return success("success",res)
