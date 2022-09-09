@@ -6,9 +6,10 @@ from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
 from common.utils.json_utils import query_list_to_dict
 from api.user.models import  User, Address, TempUser
+from api.markets.models import Warehouses
 from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
-from flask import request
+from flask import request, jsonify
 
 market_api = Blueprint('market', __name__, url_postfix='market')
 
@@ -83,3 +84,26 @@ def getNearbyMarket():
 
     return success("success", res)
 
+@market_api.route('/addWarehouses', methods=['POST'])
+def addWarehouses():
+
+    try:
+        payload = request.get_json()
+        name = payload.get("name",None)
+        area = payload.get("area",None)
+        city = payload.get("city",None)
+        state = payload.get("state",None)
+        longitude = payload.get("longitude",None)
+        latitude = payload.get("latitude",None)
+        open_time = payload.get("open_time",None)
+        close_time = payload.get("close_time",None)
+        is_open = payload.get("is_open",None)
+    
+        Warehouse =  Warehouses(name = name, area = area, city = city, state = state, longitude = longitude, latitude = latitude, open_time = open_time, close_time = close_time, is_open = is_open)
+
+        if add_item(Warehouse):
+            return success
+
+    except:
+        print(traceback.print_exc)
+        return failure

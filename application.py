@@ -1,5 +1,4 @@
 from datetime import datetime
-from requests import Response
 from common.response import failure
 from common.utils.validator import validateTokens
 from factoy import create_app
