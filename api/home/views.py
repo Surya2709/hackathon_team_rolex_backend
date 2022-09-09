@@ -9,6 +9,7 @@ from api.user.models import  User, Address, TempUser
 from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
 from flask import request
+import json
 
 home_api = Blueprint('home', __name__, url_postfix='home')
 
@@ -44,6 +45,13 @@ def getOverViewData():
 
             if not len(available_product_query)>0:
                 available_product_query =[]
+            else:
+                bres= []
+                for available_product in available_product_query:
+                    temp= {}
+                    temp['name'] = available_product['name']
+                    temp['id'] = available_product['id']
+
                 
 
             res = {
