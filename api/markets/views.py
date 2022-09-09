@@ -64,7 +64,7 @@ def getNearbyMarket():
         "avg_price" : "41",
       }, {
         "time" : "1:00",
-        "avg_price" : "38",
+        "avg_price" : "39",
       }, {
         "time" : "2:00",
         "avg_price" : "39",
@@ -88,17 +88,13 @@ def getNearbyMarket():
         "avg_price" : "47",
       }
       ]
-
+    
     productName =  ""
     productId = ""
-
     productData = Product.query.filter_by(id=product_id ).first()
     if productData:
         productName =  productData.name
         productId = productData.id
-
-    
-    
 
     if len(results)>0:
         for result in results:
@@ -113,7 +109,6 @@ def getNearbyMarket():
             temp['product_name'] = productName
             temp['product_id'] =  productId
             out.append(temp)
-
     return success("success", out)
 
 
