@@ -227,7 +227,7 @@ def get_mapping_products():
     result=[]
     product=Product.query.filter_by(category_id=products_id).first()
     if product:
-        product_list=Product_Market_Mapping.query.filter_by(product_id=product.id , market_id=market_id).first()
+        product_list=ProductMarketMapping.query.filter_by(product_id=product.id , market_id=market_id).first()
         if product_list:
             market_list=Market.query.filter_by(id=product_list.id).first()
             if market_list:
