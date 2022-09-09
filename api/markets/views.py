@@ -104,14 +104,17 @@ def addWarehouses():
         close_time = payload.get("close_time",None)
         is_open = payload.get("is_open",None)
     
-        Warehouse =  Warehouses(name = name, area = area, city = city, state = state, longitude = longitude, latitude = latitude, open_time = open_time, close_time = close_time, is_open = is_open)
+        warehouse =  Warehouses(name = name, area = area, city = city, 
+        state = state, longitude = longitude, latitude = latitude, open_time = open_time,
+         close_time = close_time, is_open = is_open)
 
-        if add_item(Warehouse):
-            return success
+        if add_item(warehouse):
+            return success("success",[])
+        return failure("faliure")
 
     except:
-        print(traceback.print_exc)
-        return failure
+        print(traceback.print_exc())
+        return failure("failing")
 
 
 
