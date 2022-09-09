@@ -106,11 +106,12 @@ def addWarehouses():
         Warehouse =  Warehouses(name = name, area = area, city = city, state = state, longitude = longitude, latitude = latitude, open_time = open_time, close_time = close_time, is_open = is_open)
 
         if add_item(Warehouse):
-            return success
+            return success("success",[])
+        return failure("faliure")
 
     except:
-        print(traceback.print_exc)
-        return failure
+        print(traceback.print_exc())
+        return failure("failing")
 
 
 
