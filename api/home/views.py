@@ -26,10 +26,6 @@ def getOverViewData():
         "total_expenses" : 100,
         "total_products" : 100,
         "todays_sales" :100 ,
-
         }
-
-
         }
-
     return success("success",res)
