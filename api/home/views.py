@@ -10,10 +10,10 @@ from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
 from flask import request
 
-product_api = Blueprint('home', __name__, url_postfix='home')
+home_api = Blueprint('home', __name__, url_postfix='home')
 
 
-@product_api.route('/getOverViewData', methods=['GET'])
+@home_api.route('/getOverViewData', methods=['GET'])
 def getOverViewData():
 
 
