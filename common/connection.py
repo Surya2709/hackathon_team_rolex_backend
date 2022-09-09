@@ -15,6 +15,7 @@ def add_item(obj):
         # log.info("add_item", err)
         # db.session.rollback()
         # log.exception(traceback.print_exc())
+        print(traceback.print_exc())
         return None
     # finally:
     #     db.session.close()
