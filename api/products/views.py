@@ -5,6 +5,7 @@ import jwt
 
 from api.home.models import Product, Category
 from api.markets.models import Market
+from api.products.models import ProductMarketMapping
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -202,17 +203,22 @@ def get_product():
     market_id = request.headers.get('market_id',None)
 
     if market_id:
-      get_products = Product.query.filter_by(market_id=market_id).all()
-      if get_products:
-          result = []
-          for data in get_products:
-              list = {}
-              list['name'] = data.name
-              list['id'] = data.id
-              list['description'] = data.description
-              list['category_id'] = data.category_id
-              result.append(list)
-          return success('SUCCESS', result)
+      MarketMappedProducts = ProductMarketMapping.query.filter_by(market_id=market_id).all()
+      result = []
+      if MarketMappedProducts:
+        for MarketMappedProduct in MarketMappedProducts:
+            get_products = Product.query.filter_by(id=MarketMappedProduct.product_id).first()
+            
+            
+            list = {}
+            list['name'] = data.name
+            list['id'] = data.id
+            list['description'] = data.description
+            list['category_id'] = data.category_id
+            result.append(list)
+        return success('SUCCESS', result)
+      return failure("failure")
+
 
     else:
       get_products = Product.query.all()
