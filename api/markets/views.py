@@ -1,4 +1,3 @@
-from gzip import READ
 import traceback
 from uuid import uuid1
 import jwt
