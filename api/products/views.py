@@ -3,7 +3,7 @@ import traceback
 from uuid import uuid1
 import jwt
 
-from api.home.models import Product
+from api.home.models import Product, Category
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -183,6 +183,33 @@ def add_products():
     print(add_details,"=========>>>>>")
     add_item(add_details)
     return success('success',[])
+
+
+@product_api.route('/addCategory', methods=['POST'])
+def ad_category():
+    data = request.json
+    name = data.get('name')
+    description = data.get('description')
+    add_category_list = Category(name=name, description=description)
+    add_item(add_category_list)
+    return success('success',[])
+
+
+@product_api.route('/getAllProducts', methods=['GET'])
+def get_product():
+    get_products = Product.query.all()
+    if get_products:
+        result = []
+        for data in get_products:
+            list = {}
+            list['name'] = data.name
+            list['id'] = data.id
+            list['description'] = data.description
+            list['category_id'] = data.category_id
+            result.append(list)
+        return success('SUCCESS', result)
+    else:
+        return success('SUCCESS',[])
 
 
 

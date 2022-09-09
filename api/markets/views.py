@@ -13,6 +13,7 @@ from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
 from flask import request
 from api.markets.models import Market
+from api.home.models import Category
 
 
 market_api = Blueprint('market', __name__, url_postfix='market')
@@ -131,6 +132,7 @@ def addMarket():
         isOpen = payload.get('is_open',None)
         state = payload.get('state',None)
 
+        print(config.SQLALCHEMY_DATABASE_URI)
         market =  Market(name=name,area=area,city=city,state=state,latitude=latitude,longitude=longitude,
                         close_time = closeTime,open_time = openTime, is_open = isOpen )
 
@@ -158,4 +160,21 @@ def getallMarkets():
     except:
         print(traceback.print_exc())
         return failure("failing")
+
+
+@market_api.route('/getAllCategory',methods=['GET'])
+def getAllCategory():
+    try:
+        categories = Category.query.all()
+        res = list()
+        for category in  categories:
+            temp= {}
+            temp['name']  =  category.name
+            temp['id'] = category.id      
+            res.append(temp)
+        return success("success",res)
+    except:
+        print(traceback.print_exc())
+        return failure("failing")
+
 
