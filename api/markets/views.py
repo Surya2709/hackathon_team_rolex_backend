@@ -14,7 +14,7 @@ market_api = Blueprint('market', __name__, url_postfix='market')
 
 
 
-@market_api.route('/getNearbyMarket', methods=['GET'])
+@market_api.route('/getNearbyMarket', methods=['POST'])
 def getNearbyMarket():
 
 
