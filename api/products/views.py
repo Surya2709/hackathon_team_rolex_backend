@@ -6,6 +6,7 @@ import jwt
 from api.home.models import Product, Category
 from api.markets.models import Market
 from api.products.models import ProductMarketMapping
+from api.sales.views import predict
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -20,6 +21,12 @@ product_api = Blueprint('product', __name__, url_postfix='product')
 
 @product_api.route('/topSellingProductPredictionGraph', methods=['GET'])
 def topSellingProductPredictionGraph():
+
+  
+    results =  predict()
+
+
+
 
     graph = [
       {

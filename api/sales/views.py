@@ -78,19 +78,8 @@ def predict():
     from ml.main import predict
 
     results = predict()
-    json_res = results.to_dict()
-    print(json_res)
-
-
-    # print(res.head())
-
-
-    {
-      "date_time" : "01/12/2022 00:00:00",
-      "avg_price" : "120",
-      "orders" : "24",
-    },
-
-    return success("success",[])
+    json_res = results.to_json(orient ='records')
+    import json
+    return success("success",json.loads(json_res))
 
     
