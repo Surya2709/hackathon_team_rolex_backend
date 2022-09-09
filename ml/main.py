@@ -26,7 +26,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import numpy as np
 import pandas as pd
-from utils.general import (LOGGER, check_requirements, check_version, colorstr, increment_path, init_seeds)
+from ml.utils.general import (LOGGER, check_requirements, check_version, colorstr, increment_path, init_seeds)
 from datetime import datetime
 from sklearn.metrics import mean_absolute_error
 
@@ -43,7 +43,7 @@ def read_data(file_name):
 def Prophet_way():
 
     # Prophet model
-    df = read_data('Tomato_price_data.xlsx')
+    df = read_data('ml/Tomato_price_data.xlsx')
     df_pm = df.rename(columns={'date_time':'ds', 'avg':'y'})
     df_pm = df_pm.drop(['product_name','min','max'], axis=1)
     df_pm['ds']= pd.to_datetime(df_pm['ds'])
@@ -60,12 +60,12 @@ def Prophet_way():
     future.columns = ['ds']
     future['ds']= pd.to_datetime(future['ds'])
 
-    print('Doing prediction for next few Days')
+    #print('Doing prediction for next few Days')
     # use the model to make a forecast
     forecast = model.predict(future)
 
     # summarize the forecast
-    print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
+    #print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
 
     # plot forecast
     # model.plot(forecast)
@@ -80,7 +80,7 @@ def Prophet_way():
     ## Prediction for next few hours
     # create test dataset, remove last
     train = df_pm.drop(df_pm.index[-11:])
-    print(train)
+    #print(train)
 
     # define the model
     model = Prophet()
@@ -102,21 +102,21 @@ def Prophet_way():
 
     # calculate MAE between expected and predicted values for last 12 hrs of 2022-09-08
     y_true = df_pm['y'][-11:].values
-    # print('y_true:',y_true)
+    # #print('y_true:',y_true)
 
     y_pred = forecast['yhat'].values
-    # print('y_pred:',y_pred)
-    print('Doing prediction for next few hours')
+    # #print('y_pred:',y_pred)
+    #print('Doing prediction for next few hours')
 
     # plot forecast
     # model.plot(forecast)
     # plt.draw()
     # plt.show()
-    print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']])
+    #print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']])
 
     return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
     mae = mean_absolute_error(y_true, y_pred)
-    print('MAE: %.3f' % mae)
+    #print('MAE: %.3f' % mae)
 
     # # plot expected vs actual
     # plt.plot(y_true, label='Actual')
@@ -128,8 +128,8 @@ def Prophet_way():
 # ************************************************************************************************
 # LSTM Model
 def lstm_way():
-    df = read_data('Tomato_price_data.xlsx')
-    print(df.head)
+    df = read_data('ml/Tomato_price_data.xlsx')
+    #print(df.head)
     df['date_time'] = pd.to_datetime(df['date_time'])
     df = df.iloc[:,1].values
     df = df.reshape(-1,1)
@@ -142,7 +142,7 @@ def lstm_way():
     test_size = len(df) - train_size
     train = df[0:train_size,:]
     test = df[train_size:len(df),:]
-    print("train size: {}, test size: {} ".format(len(train), len(test)))
+    #print("train size: {}, test size: {} ".format(len(train), len(test)))
 
 
     time_stamp = 1
@@ -193,9 +193,9 @@ def lstm_way():
 
     # calculate root mean squared error
     trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
-    print('Train Score: %.2f RMSE' % (trainScore))
+    #print('Train Score: %.2f RMSE' % (trainScore))
     testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
-    print('Test Score: %.2f RMSE' % (testScore))
+    #print('Test Score: %.2f RMSE' % (testScore))
 
     # shifting train
     trainPredictPlot = np.empty_like(df)
@@ -207,7 +207,7 @@ def lstm_way():
     testPredictPlot[:, :] = np.nan
     testPredictPlot[len(trainPredict)+(time_stamp*2)+1:len(df)-1, :] = testPredict
 
-    # print(trainPredictPlot)
+    # #print(trainPredictPlot)
     # plt.plot(scaler.inverse_transform(df))
     # plt.plot(trainPredictPlot)
     # plt.plot(testPredictPlot)
@@ -215,9 +215,9 @@ def lstm_way():
     # plt.show()
 
 
-def predict(request):
+def predict():
 
-    res = Prophet_way()
-
-    return "working"
+    results = Prophet_way()
+    
+    return results
 # lstm_way()
