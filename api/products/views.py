@@ -242,7 +242,74 @@ def get_mapping_products():
     else:
         return failure('failure',[])
 
+@product_api.route('/getProductPrediction', methods=['POST'])
+def getProductPrediction():
+    
+    try:
+        payload = request.get_json()
+        product_id = payload.get("product_id",None)
+        market_id = payload.get("market_id",None )
 
+        res = {
+    "prodcut_name" : "Wheat",
+    "market_id" : "skdj9932-0wl-3o2=w=3-",
+    "market_name" : "Chickpet",
+    "data" :[
+            {
+                "time" : "8:00",
+                "avg_price" : "40",
+            },
+            {
+                "time" : "9:00",
+                "avg_price" : "42",
+            }, {
+                "time" : "10:00",
+                "avg_price" : "45",
+            }, {
+                "time" : "11:00",
+                "avg_price" : "44",
+            }, {
+                "time" : "12:00",
+                "avg_price" : "41",
+            }, {
+                "time" : "1:00",
+                "avg_price" : "38",
+            }, {
+                "time" : "2:00",
+                "avg_price" : "39",
+            }, {
+                "time" : "3:00",
+                "avg_price" : "43",
+            }, {
+                "date_time" : "4:00",
+                "avg_price" : "48",
+            },  {
+                "time" : "5:00",
+                "avg_price" : "50",
+            }, {
+                "time" : "6:00",
+                "avg_price" : "43",
+            }, {
+                "time" : "7:00",
+                "avg_price" : "42",
+            }, {
+                "time" : "8:00",
+                "avg_price" : "47",
+            }
+            ]
+        }
+        return success('success',res)
+
+
+    except:
+        print(traceback.print_exc)
+        return failure('failed')
   
+
+
+
+
+
+
 
 
