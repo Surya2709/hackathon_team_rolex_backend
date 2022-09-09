@@ -6,7 +6,7 @@ import jwt
 from api.home.models import Product, Category
 from api.markets.models import Market
 from api.products.models import ProductMarketMapping
-from api.sales.views import predict
+from ml.main import predict
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -21,60 +21,21 @@ product_api = Blueprint('product', __name__, url_postfix='product')
 
 @product_api.route('/topSellingProductPredictionGraph', methods=['GET'])
 def topSellingProductPredictionGraph():
-
+    import datetime
+    import json
+    df =  predict()
+      # json.loads(json.dumps(list(df.T.to_dict().values())))
+    results = json.loads(df.to_json(orient ='records'))
+    print(results)
+    graph =[]
+    for res in results:
+      temp={}
+      temp['time'] = res['ds']
+      temp['avg_price'] = res['yhat']
+      graph.append(temp)
   
-    results =  predict()
-
-
-
-
-    graph = [
-      {
-        "time" : "8:00",
-        "avg_price" : "40"
-      },
-       {
-        "time" : "9:00",
-        "avg_price" : "42",
-      }, {
-        "time" : "10:00",
-        "avg_price" : "45",
-      }, {
-        "time" : "11:00",
-        "avg_price" : "44",
-      }, {
-        "time" : "12:00",
-        "avg_price" : "41",
-      }, {
-        "time" : "1:00",
-        "avg_price" : "38",
-      }, {
-        "time" : "2:00",
-        "avg_price" : "39",
-      }, {
-        "time" : "3:00",
-        "avg_price" : "43",
-      }, {
-        "date_time" : "4:00",
-        "avg_price" : "48",
-      },  {
-        "time" : "5:00",
-        "avg_price" : "50",
-      }, {
-        "time" : "6:00",
-        "avg_price" : "43",
-      }, {
-        "time" : "7:00",
-        "avg_price" : "42",
-      }, {
-        "time" : "8:00",
-        "avg_price" : "47",
-      }
-      ]
-
-
     res = {
-    "prodcut_name" : "Wheat",
+    "prodcut_name" : "Tomato",
     "market_id" : "skdj9932-0wl-3o2=w=3-",
     "market_name" : "chickpet",
     "data" : graph

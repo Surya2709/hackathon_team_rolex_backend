@@ -218,6 +218,6 @@ def lstm_way():
 def predict():
 
     results = Prophet_way()
-    
+    results['ds'] = results['ds'].astype(str)
     return results
 # lstm_way()
