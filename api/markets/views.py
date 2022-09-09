@@ -103,6 +103,7 @@ def getNearbyMarket():
                 temp['market_id'] = result['id']
                 temp['lat']  = result['latitude']
                 temp['lng'] = result['longitude']
+                temp['distance'] = result['distance']
                 temp['opening_time'] = result['open_time']
                 temp['is_open'] = result['is_open']
                 temp['prediction'] = graph
