@@ -42,21 +42,22 @@ def getOverViewData():
 
             available_product_query =  raw_select(f"select p.name,p.id from product_market_mapping pm inner join product p on p.id=pm.product_id where pm.market_id='{result['id']}'")
 
-            if len(available_product_query)>0:
+            if not len(available_product_query)>0:
+                available_product_query =[]
                 
 
-                res = {
+            res = {
 
-                    "head_card" : {
-                    "available_products" : available_product_query,
-                    "market_name" : result['name'],
-                    "market_id": result['id'],
-                    "total_sales" : 5677687,
-                    "total_expenses" : 8900,
-                    "total_products" : 89,
-                    "todays_sales" :788898 ,
-                    }
-                    }
+                "head_card" : {
+                "available_products" : available_product_query,
+                "market_name" : result['name'],
+                "market_id": result['id'],
+                "total_sales" : 5677687,
+                "total_expenses" : 8900,
+                "total_products" : 89,
+                "todays_sales" :788898 ,
+                }
+                }
         return success("success",res)
     except:
         print(traceback.print_exc())

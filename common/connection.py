@@ -70,7 +70,7 @@ def raw_select(sql):
         return result
     except Exception as err:
         # logging.exception(traceback.print_exc())
-        # print(traceback.print_exc())
+        print(traceback.print_exc())
         return []
 
 
