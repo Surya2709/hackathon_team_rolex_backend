@@ -52,7 +52,6 @@ def getOverViewData():
                     temp['name'] = available_product['name']
                     temp['id'] = available_product['id']
 
-                
 
             res = {
 
