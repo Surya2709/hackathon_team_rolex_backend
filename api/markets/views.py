@@ -129,6 +129,7 @@ def addMarket():
         isOpen = payload.get('is_open',None)
         state = payload.get('state',None)
 
+        print(config.SQLALCHEMY_DATABASE_URI)
         market =  Market(name=name,area=area,city=city,state=state,latitude=latitude,longitude=longitude,
                         close_time = closeTime,open_time = openTime, is_open = isOpen )
 
