@@ -195,6 +195,24 @@ def ad_category():
     return success('success',[])
 
 
+@product_api.route('/getAllProducts', methods=['GET'])
+def get_product():
+    get_products = Product.query.all()
+    if get_products:
+        result = []
+        for data in get_products:
+            list = {}
+            list['name'] = data.name
+            list['id'] = data.id
+            list['description'] = data.description
+            list['category_id'] = data.category_id
+            result.append(list)
+        return success('SUCCESS', result)
+    else:
+        return success('SUCCESS',[])
+
+
+
   
 
 
