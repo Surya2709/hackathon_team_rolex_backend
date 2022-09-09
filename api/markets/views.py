@@ -23,99 +23,7 @@ market_api = Blueprint('market', __name__, url_postfix='market')
 
 @market_api.route('/getNearbyMarket', methods=['POST'])
 def getNearbyMarket():
-<<<<<<< HEAD
-    data = request.json
-    latitude=  data.get('latitude')
-    longitude=  data.get('longitude')
-    result=[]
-
-    marcket_data=Market.query.filter_by(latitude=latitude,longitude=longitude).all()
-    print(marcket_data,"===============>>11")
-    if marcket_data:
-        for data in marcket_data:
-            list={}
-            list['city']=data.city
-            list['name']=data.name
-            list['area']=data.area
-            list['state']=data.state
-            list['open_time']=data.open_time
-            list['close_time']=data.close_time
-            list['is_open']=data.is_open
-            result.append(list)
-        return success('success',result)
-    else:
-        return failure('failure',[])
-
-
-
-
-    # res = {
-    #         "nearby_markets": [
-    #             {
-    #             "lat": "70",
-    #             "lng": "80",
-    #             "distance": "4.1",
-    #             "opening_time": "8:00pm",
-    #             "is_open": True,
-    #             "market_name": "Shivaji Nagar",
-    #             "market_id": "ksdioiw-02ow-20wo2-w2-w0w2-0w",
-    #             "products": [
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 },
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 }
-    #             ]
-    #             },
-    #             {
-    #             "lat": "70",
-    #             "lng": "80",
-    #             "distance": "4.1",
-    #             "opening_time": "8:00pm",
-    #             "is_open": True,
-    #             "market_name": "Shivaji Nagar",
-    #             "market_id": "ksdioiw-02ow-20wo2-w2-w0w2-0w",
-    #             "products": [
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 },
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 }
-    #             ]
-    #             },
-    #             {
-    #             "lat": "70",
-    #             "lng": "80",
-    #             "distance": "4.1",
-    #             "opening_time": "8:00pm",
-    #             "is_open": True,
-    #             "market_name": "Shivaji Nagar",
-    #             "market_id": "ksdioiw-02ow-20wo2-w2-w0w2-0w",
-    #             "products": [
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 },
-    #                 {
-    #                 "product_name": "wheat",
-    #                 "product_id": "i3iii3434343409343ewpewopie3"
-    #                 }
-    #             ]
-    #             }
-    #         ]
-    #         }
-    #
-    # return success("success", res)
-    #
-=======
-
-
+    
     payload = request.get_json()
 
     lat = payload['lat']
@@ -208,7 +116,6 @@ def getNearbyMarket():
 
     return success("success", out)
 
->>>>>>> 8a218117ca8090932d41393230004cbcd793bc36
 
 @market_api.route('/addWarehouses', methods=['POST'])
 def addWarehouses():
