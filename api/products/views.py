@@ -4,7 +4,7 @@ from uuid import uuid1
 import jwt
 
 from api.home.models import Product, Category
-from api.markets.models import Market, Product_Market_Mapping
+from api.markets.models import Market
 from api.products.models import ProductMarketMapping
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
