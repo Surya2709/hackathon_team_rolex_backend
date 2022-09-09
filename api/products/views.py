@@ -21,11 +21,11 @@ def getOverViewData():
 
         "head_card" : {
 
-        "market_id":"348384934909343943434-0343434",
-        "total_sales" : "343434",
-        "total_expenses" : "343434",
-        "total_products" : "100",
-        "todays_sales" :"1239" ,
+        "market_id":"euyie4djeidjoedie-0343434",
+        "total_sales" : 10000,
+        "total_expenses" : 100,
+        "total_products" : 100,
+        "todays_sales" :100 ,
 
         }
 
