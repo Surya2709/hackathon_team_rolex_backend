@@ -1,5 +1,5 @@
 from doctest import REPORT_UDIFF
-from random import lognormvariate
+from random import lognormvariate, randint
 import traceback
 from uuid import uuid1
 import jwt
@@ -48,44 +48,44 @@ def getNearbyMarket():
         graph = [
         {
             "time" : "8:00",
-            "avg_price" : "40"
+            "avg_price" : randint(40,70)
         },
         {
             "time" : "9:00",
-            "avg_price" : "42",
+            "avg_price" : randint(40,70),
         }, {
             "time" : "10:00",
-            "avg_price" : "45",
+            "avg_price" : randint(40,70),
         }, {
             "time" : "11:00",
-            "avg_price" : "44",
+            "avg_price" :  randint(40,70),
         }, {
             "time" : "12:00",
-            "avg_price" : "41",
+            "avg_price" :  randint(40,70),
         }, {
             "time" : "1:00",
-            "avg_price" : "39",
+            "avg_price" :  randint(40,70),
         }, {
             "time" : "2:00",
-            "avg_price" : "39",
+            "avg_price" :  randint(40,70),
         }, {
             "time" : "3:00",
-            "avg_price" : "43",
+            "avg_price" :  randint(40,70),
         }, {
             "date_time" : "4:00",
-            "avg_price" : "48",
+            "avg_price" :  randint(40,70),
         },  {
             "time" : "5:00",
-            "avg_price" : "50",
+            "avg_price" :  randint(40,70),
         }, {
             "time" : "6:00",
-            "avg_price" : "43",
+            "avg_price" : randint(40,70),
         }, {
             "time" : "7:00",
-            "avg_price" : "42",
+            "avg_price" : randint(40,70),
         }, {
             "time" : "8:00",
-            "avg_price" : "47",
+            "avg_price" :  randint(40,70),
         }
         ]
 
