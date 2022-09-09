@@ -34,15 +34,9 @@ class TempUser(BaseModel):
     device_id = Column(Text)
 
 
-class Product(BaseModel):
-    __tablename__ = 'product'
-    name =	Column(String(40))
-    desceription= Column(String(40))
 
 
-class Category(BaseModel):
-    __tablename__ = 'category'
-    name = Column(String(40))
-    desceription = Column(String(40))
+
+
 
 

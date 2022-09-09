@@ -2,6 +2,8 @@ from gzip import READ
 import traceback
 from uuid import uuid1
 import jwt
+
+from api.home.models import Product
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -140,6 +142,7 @@ def getTopSellingProducts():
         }
     return success("success", res)
 
+
 @product_api.route('/productSalesDetail', methods=['GET'])
 def productSalesDetail():
     res = {
@@ -169,6 +172,20 @@ def productSalesDetail():
     return success('SUCCESS',res)
 
 
+@product_api.route('/addProduct', methods=['POST'])
+def add_products():
+    data = request.json
+    name = data.get('name')
+    print(name,"=======>>>>")
+    description = data.get('description')
+    category_id = data.get('category_id')
+    add_details = Product(name=name, description=description,category_id=category_id)
+    print(add_details,"=========>>>>>")
+    add_item(add_details)
+    return success('success',[])
+
+
 
   
+
 
