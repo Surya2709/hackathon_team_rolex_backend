@@ -26,9 +26,23 @@ class Address(BaseModel):
     country = Column(String(50))
     national_number = Column(String(50))
 
+
 class TempUser(BaseModel):
     __tablename__ = 'temp_user'
 
     user_id = Column(String(40))
     device_id = Column(Text)
+
+
+class Product(BaseModel):
+    __tablename__ = 'product'
+    name =	Column(String(40))
+    desceription= Column(String(40))
+
+
+class Category(BaseModel):
+    __tablename__ = 'category'
+    name = Column(String(40))
+    desceription = Column(String(40))
+
 

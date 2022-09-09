@@ -17,7 +17,6 @@ product_api = Blueprint('product', __name__, url_postfix='product')
 @product_api.route('/topSellingProductPredictionGraph', methods=['GET'])
 def topSellingProductPredictionGraph():
 
-
     graph = [
       {
         "time" : "8:00",
@@ -140,6 +139,36 @@ def getTopSellingProducts():
             ]
         }
     return success("success", res)
+
+@product_api.route('/productSalesDetail', methods=['GET'])
+def productSalesDetail():
+    res = {
+        "product_name": "Wheat",
+        "avg_sale_price_lower": "155.",
+        "avg_sale_price_upper": "155.",
+        "last_sold_price": "167.50",
+        "selling_data": [
+            {
+                "seller_name": "Surya",
+                "quantity": "238273789",
+                "price": ""
+            },
+            {
+                "seller_name": "Surya",
+                "quantity": "238273789",
+                "price": ""
+            },
+            {
+                "seller_name": "Surya",
+                "quantity": "238273789",
+                "price": ""
+            }
+        ]
+
+    }
+    return success('SUCCESS',res)
+
+
 
   
 
