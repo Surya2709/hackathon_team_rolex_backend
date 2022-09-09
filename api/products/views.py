@@ -140,6 +140,3 @@ def getTopSellingProducts():
             ]
         }
     return success("success", res)
-
-  
-
