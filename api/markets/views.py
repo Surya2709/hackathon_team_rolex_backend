@@ -13,7 +13,8 @@ from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
 from flask import request
 from api.markets.models import Market
-from api.home.models import Category
+from api.home.models import Category, Product
+from api.products.models import ProductMarketMapping
 
 
 market_api = Blueprint('market', __name__, url_postfix='market')
@@ -22,6 +23,7 @@ market_api = Blueprint('market', __name__, url_postfix='market')
 
 @market_api.route('/getNearbyMarket', methods=['POST'])
 def getNearbyMarket():
+<<<<<<< HEAD
     data = request.json
     latitude=  data.get('latitude')
     longitude=  data.get('longitude')
@@ -111,6 +113,102 @@ def getNearbyMarket():
     #
     # return success("success", res)
     #
+=======
+
+
+    payload = request.get_json()
+
+    lat = payload['lat']
+    long = payload['lng']
+    product_id = payload['product_id']
+
+
+    from math import radians
+    lat1 = radians(lat)
+    lon1 = radians(long)
+
+    distance = '(6371.01 * (2 * atan2(sqrt((power(sin((radians(latitude::float) - ' + str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') * cos(radians(latitude::float)) * power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2),2))), sqrt(1 - (power(sin((radians(latitude::float) - ' + str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') * cos(radians(latitude::float)) * power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2),2))))))'
+    time = '((' + distance + '/ 20) * 60)'
+
+   
+    outlet_query = "SELECT *," + distance + " as distance," + time + " as time from market where deleted_at IS " \
+                                                                            "Null ORDER BY distance ASC LIMIT 4" 
+    print(outlet_query)
+    results = raw_select(outlet_query)
+
+    out =[]
+    graph = [
+      {
+        "time" : "8:00",
+        "avg_price" : "40"
+      },
+       {
+        "time" : "9:00",
+        "avg_price" : "42",
+      }, {
+        "time" : "10:00",
+        "avg_price" : "45",
+      }, {
+        "time" : "11:00",
+        "avg_price" : "44",
+      }, {
+        "time" : "12:00",
+        "avg_price" : "41",
+      }, {
+        "time" : "1:00",
+        "avg_price" : "38",
+      }, {
+        "time" : "2:00",
+        "avg_price" : "39",
+      }, {
+        "time" : "3:00",
+        "avg_price" : "43",
+      }, {
+        "date_time" : "4:00",
+        "avg_price" : "48",
+      },  {
+        "time" : "5:00",
+        "avg_price" : "50",
+      }, {
+        "time" : "6:00",
+        "avg_price" : "43",
+      }, {
+        "time" : "7:00",
+        "avg_price" : "42",
+      }, {
+        "time" : "8:00",
+        "avg_price" : "47",
+      }
+      ]
+
+    productName =  ""
+    productId = ""
+
+    productData = Product.query.filter_by(id=product_id ).first()
+    if productData:
+        productName =  productData.name
+        productId = productData.id
+
+    
+    
+
+    if len(results)>0:
+        for result in results:
+            temp = {}
+            temp['market_name'] = result['name']
+            temp['market_id'] = result['id']
+            temp['lat']  = result['latitude']
+            temp['lng'] = result['longitude']
+            temp['opening_time'] = result['open_time']
+            temp['is_open'] = result['is_open']
+            temp['prediction'] = graph
+            temp['product_name'] = productName
+            temp['product_id'] =  productId
+            out.append(temp)
+
+    return success("success", out)
+
+>>>>>>> 8a218117ca8090932d41393230004cbcd793bc36
 
 @market_api.route('/addWarehouses', methods=['POST'])
 def addWarehouses():
@@ -127,14 +225,17 @@ def addWarehouses():
         close_time = payload.get("close_time",None)
         is_open = payload.get("is_open",None)
     
-        Warehouse =  Warehouses(name = name, area = area, city = city, state = state, longitude = longitude, latitude = latitude, open_time = open_time, close_time = close_time, is_open = is_open)
+        warehouse =  Warehouses(name = name, area = area, city = city, 
+        state = state, longitude = longitude, latitude = latitude, open_time = open_time,
+         close_time = close_time, is_open = is_open)
 
-        if add_item(Warehouse):
-            return success
+        if add_item(warehouse):
+            return success("success",[])
+        return failure("faliure")
 
     except:
-        print(traceback.print_exc)
-        return failure
+        print(traceback.print_exc())
+        return failure("failing")
 
 
 

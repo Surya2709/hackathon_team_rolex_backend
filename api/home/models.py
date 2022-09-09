@@ -15,12 +15,3 @@ class Category(BaseModel):
 
     name = Column(String(50),nullable=True)
     description = Column(String(50),nullable=True)
-
-class Sales(BaseModel):
-    __tablename__ = 'sales'
-
-    user_id = Column(String(50),nullable=True)
-    product_id = Column(String(50),nullable=True)
-    market_id = Column(String(50),nullable=True)
-    quantity = Column(Float(),nullable=True)
-    purchase_value =  Column(Float(),nullable=True)

@@ -3,8 +3,9 @@ import traceback
 from uuid import uuid1
 import jwt
 
-from api.home.models import Product, Category, Sales
-from api.markets.models import Product_Market_Mapping, Market
+from api.home.models import Product, Category
+from api.markets.models import Market, Product_Market_Mapping
+from api.products.models import ProductMarketMapping
 from config import Config as config
 from common.utils.time_utils import get_auth_exp,createToken
 from common.blueprint import Blueprint
@@ -199,6 +200,10 @@ def ad_category():
 
 @product_api.route('/getAllProducts', methods=['GET'])
 def get_product():
+
+    market_id = request.headers.get('market_id',None)
+
+   
     get_products = Product.query.all()
     if get_products:
         result = []
