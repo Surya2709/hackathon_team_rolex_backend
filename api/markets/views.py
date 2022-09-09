@@ -113,7 +113,7 @@ def addMarket():
         return failure("failing")
 
 @market_api.route('/getAllMarkets',methods=['GET'])
-def addMarket():
+def getallMarkets():
     try:
         markets = Market.query.all()
         res = list()
