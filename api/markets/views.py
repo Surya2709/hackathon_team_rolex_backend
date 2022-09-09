@@ -80,6 +80,20 @@ def getNearbyMarket():
             ]
             }
 
-
     return success("success", res)
 
+
+
+@market_api.route('/addMarket',methods=['POST'])
+def addMarket():
+
+
+    try:
+        payload = request.get_json()
+        
+        
+
+
+    except:
+        print(traceback.print_exc())
+        return failure("failing")
