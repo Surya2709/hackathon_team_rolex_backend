@@ -149,7 +149,7 @@ def getTopSellingProducts():
 def productSalesDetail():
 
     res = {
-        "product_name": "Wheat",
+        "product_name": "tomato",
         "avg_sale_price_lower": "155.",
         "avg_sale_price_upper": "155.",
         "last_sold_price": "167.50",
