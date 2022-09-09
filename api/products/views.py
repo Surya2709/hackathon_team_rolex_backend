@@ -202,14 +202,11 @@ def get_product():
 
     market_id = request.headers.get('market_id',None)
 
-    if market_id:
-      MarketMappedProducts = ProductMarketMapping.query.filter_by(market_id=market_id).all()
-      result = []
-      if MarketMappedProducts:
-        for MarketMappedProduct in MarketMappedProducts:
-            get_products = Product.query.filter_by(id=MarketMappedProduct.product_id).first()
-            
-            
+   
+    get_products = Product.query.all()
+    if get_products:
+        result = []
+        for data in get_products:
             list = {}
             list['name'] = data.name
             list['id'] = data.id
@@ -217,23 +214,8 @@ def get_product():
             list['category_id'] = data.category_id
             result.append(list)
         return success('SUCCESS', result)
-      return failure("failure")
-
-
     else:
-      get_products = Product.query.all()
-      if get_products:
-          result = []
-          for data in get_products:
-              list = {}
-              list['name'] = data.name
-              list['id'] = data.id
-              list['description'] = data.description
-              list['category_id'] = data.category_id
-              result.append(list)
-          return success('SUCCESS', result)
-      else:
-          return success('SUCCESS',[])
+        return success('SUCCESS',[])
 
 
 
