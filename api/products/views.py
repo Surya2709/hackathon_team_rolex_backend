@@ -202,8 +202,6 @@ def ad_category():
 def get_product():
 
     market_id = request.headers.get('market_id',None)
-
-   
     get_products = Product.query.all()
     if get_products:
         result = []

@@ -15,45 +15,49 @@ home_api = Blueprint('home', __name__, url_postfix='home')
 
 @home_api.route('/getOverViewData', methods=['GET'])
 def getOverViewData():
+    try:
 
-    lat = request.args['lat']
-    long = request.args['lng']
-    from math import radians
-    lat1 = radians(float(lat))
-    lon1 = radians(float(long))
-    distance = '(6371.01 * (2 * atan2(sqrt((power(sin((radians(latitude::float) - ' + \
-         str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') * cos(radians(latitude::float)) * \
-             power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2),2))), sqrt(1 - \
-                (power(sin((radians(latitude::float) - ' + str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') \
-                    * cos(radians(latitude::float)) * power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2)\
-                        ,2))))))'
-    time = '((' + distance + '/ 20) * 60)'
+        lat = request.args['lat']
+        long = request.args['lng']
+        from math import radians
+        lat1 = radians(float(lat))
+        lon1 = radians(float(long))
+        distance = '(6371.01 * (2 * atan2(sqrt((power(sin((radians(latitude::float) - ' + \
+            str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') * cos(radians(latitude::float)) * \
+                power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2),2))), sqrt(1 - \
+                    (power(sin((radians(latitude::float) - ' + str(lat1) + ') / 2),2) + cos(' + str(lat1) + ') \
+                        * cos(radians(latitude::float)) * power(sin((radians(longitude::float) - ' + str(lon1) + ') / 2)\
+                            ,2))))))'
+        time = '((' + distance + '/ 20) * 60)'
 
-   
-    outlet_query = "SELECT *," + distance + " as distance," + time + " as time from market where deleted_at IS " \
-                                                                            "Null ORDER BY distance ASC LIMIT 1" 
-    print(outlet_query)
-    results = raw_select(outlet_query)
+    
+        outlet_query = "SELECT *," + distance + " as distance," + time + " as time from market where deleted_at IS " \
+                                                                                "Null ORDER BY distance ASC LIMIT 1" 
+        print(outlet_query)
+        results = raw_select(outlet_query)
 
-    res = {}
-    if len(results):
-        result =  results[0]
+        res = {}
+        if len(results):
+            result =  results[0]
 
-        available_product_query =  raw_select(f"select p.name,p.id from product_market_mapping pm inner join product p on p.id=pm.product_id where pm.market_id='{result['id']}'")
+            available_product_query =  raw_select(f"select p.name,p.id from product_market_mapping pm inner join product p on p.id=pm.product_id where pm.market_id='{result['id']}'")
 
-        if len(available_product_query)>0:
-            
+            if len(available_product_query)>0:
+                
 
-            res = {
+                res = {
 
-                "head_card" : {
-                "available_products" : available_product_query,
-                "market_name" : result['name'],
-                "market_id": result['id'],
-                "total_sales" : 5677687,
-                "total_expenses" : 8900,
-                "total_products" : 89,
-                "todays_sales" :788898 ,
-                }
-                }
-    return success("success",res)
+                    "head_card" : {
+                    "available_products" : available_product_query,
+                    "market_name" : result['name'],
+                    "market_id": result['id'],
+                    "total_sales" : 5677687,
+                    "total_expenses" : 8900,
+                    "total_products" : 89,
+                    "todays_sales" :788898 ,
+                    }
+                    }
+        return success("success",res)
+    except:
+        print(traceback.print_exc())
+        return failure("failed")
