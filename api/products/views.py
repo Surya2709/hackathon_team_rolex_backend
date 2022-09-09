@@ -142,6 +142,7 @@ def getTopSellingProducts():
         }
     return success("success", res)
 
+
 @product_api.route('/productSalesDetail', methods=['GET'])
 def productSalesDetail():
     res = {
@@ -186,4 +187,5 @@ def add_products():
 
 
   
+
 

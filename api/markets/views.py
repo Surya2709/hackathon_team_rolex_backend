@@ -14,7 +14,7 @@ market_api = Blueprint('market', __name__, url_postfix='market')
 
 
 
-@market_api.route('/getNearbyMarket', methods=['GET'])
+@market_api.route('/getNearbyMarket', methods=['POST'])
 def getNearbyMarket():
 
 
@@ -80,6 +80,20 @@ def getNearbyMarket():
             ]
             }
 
-
     return success("success", res)
 
+
+
+@market_api.route('/addMarket',methods=['POST'])
+def addMarket():
+
+
+    try:
+        payload = request.get_json()
+        
+        
+
+
+    except:
+        print(traceback.print_exc())
+        return failure("failing")
