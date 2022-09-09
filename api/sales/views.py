@@ -1,3 +1,4 @@
+from audioop import add
 import traceback
 from uuid import uuid1
 import jwt
@@ -9,6 +10,8 @@ from api.user.models import  User, Address, TempUser
 from common.connection import  add_item, raw_select, update_item, delete_item
 from common.response import success, failure
 from flask import request
+from api.sales.models import Sales
+
 
 sales_api = Blueprint('sales', __name__, url_postfix='sales')
 
@@ -44,5 +47,26 @@ def productSalesDetail():
 
 
 
-  
+@sales_api.route('/addProductSalesDetails', methods=['POST'])
+def addProductSalesDetails():
+
+    try:
+        
+        payload = request.get_json()
+        marketId =  payload['market_id']
+        productId = payload['product_id']
+        userId = payload['user_id']
+        quantity = payload['quantity']
+        purchase_vlaue = payload['purchase_value']
+        salesDetail =  Sales()
+        salesDetail.market_id = marketId
+        salesDetail.product_id = productId
+        salesDetail.quantity =  quantity
+        salesDetail.user_id = userId
+        salesDetail.purchase_value = purchase_vlaue
+        if add_item(salesDetail):
+            return success("success",[])
+        return failure("failure")
+    except:
+        return failure("failure")
 
