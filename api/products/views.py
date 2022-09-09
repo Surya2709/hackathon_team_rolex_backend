@@ -138,6 +138,7 @@ def getTopSellingProducts():
             }
             ]
         }
+<<<<<<< HEAD
     return success("success", res)
 
 @product_api.route('/productSalesDetail', methods=['GET'])
@@ -172,3 +173,6 @@ def productSalesDetail():
 
   
 
+=======
+    return success("success", res)
+>>>>>>> 96072ddc5fff32c1bcb93e6895e64f922d4f01b1
