@@ -90,8 +90,6 @@ def getNearbyMarket():
 
 @market_api.route('/addMarket',methods=['POST'])
 def addMarket():
-
-
     try:
         payload = request.get_json()
         name =  payload.get('name',None)
@@ -110,6 +108,24 @@ def addMarket():
         if add_item(market):
             return success("success",[])
         return failure("faliure")
+    except:
+        print(traceback.print_exc())
+        return failure("failing")
+
+@market_api.route('/getAllMarkets',methods=['GET'])
+def addMarket():
+    try:
+        markets = Market.query.all()
+        res = list()
+        for market in  markets:
+            temp= {}
+            temp['name']  =  market.name
+            temp['id'] = market.id
+            temp['lat'] = market.latitude
+            temp['lng'] = market.longitude
+            res.append(temp)
+        return success("success",res)
+
     except:
         print(traceback.print_exc())
         return failure("failing")
