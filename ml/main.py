@@ -17,9 +17,9 @@ import matplotlib.pyplot as plt
 from prophet import Prophet
 import plotly.express as px
 import math
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
+# from keras.models import Sequential
+# from keras.la/.yers import Dense
+# from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 import warnings
@@ -53,8 +53,8 @@ def Prophet_way():
 
     # define the period for which we want a prediction
     future = list()
-    for i in range(9,15):
-        date = '2022-09-%02d' % i
+    for i in range(11,30):
+        date = '2022-10-%02d' % i
         future.append([date])
     future = pd.DataFrame(future)
     future.columns = ['ds']
@@ -90,7 +90,7 @@ def Prophet_way():
     # define the period for which we want a prediction
     future = list()
     for i in range(13, 24):
-        date = '2022-09-08 %2d:00:00' % i
+        date = '2022-10-11 %2d:00:00' % i
         future.append([date])
     future = pd.DataFrame(future)
     future.columns = ['ds']
@@ -116,7 +116,7 @@ def Prophet_way():
 
     return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
     mae = mean_absolute_error(y_true, y_pred)
-    #print('MAE: %.3f' % mae)
+    #print('MAE: %.2f' % mae)
 
     # # plot expected vs actual
     # plt.plot(y_true, label='Actual')
@@ -127,92 +127,92 @@ def Prophet_way():
 
 # ************************************************************************************************
 # LSTM Model
-def lstm_way():
-    df = read_data('ml/Tomato_price_data.xlsx')
-    #print(df.head)
-    df['date_time'] = pd.to_datetime(df['date_time'])
-    df = df.iloc[:,1].values
-    df = df.reshape(-1,1)
-    df = df.astype("float32")
-    # scaling 
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    df = scaler.fit_transform(df)
+# def lstm_way():
+#     df = read_data('ml/Tomato_price_data.xlsx')
+#     #print(df.head)
+#     df['date_time'] = pd.to_datetime(df['date_time'])
+#     df = df.iloc[:,1].values
+#     df = df.reshape(-1,1)
+#     df = df.astype("float32")
+#     # scaling 
+#     scaler = MinMaxScaler(feature_range=(0, 1))
+#     df = scaler.fit_transform(df)
 
-    train_size = int(len(df) * 0.75)
-    test_size = len(df) - train_size
-    train = df[0:train_size,:]
-    test = df[train_size:len(df),:]
-    #print("train size: {}, test size: {} ".format(len(train), len(test)))
+#     train_size = int(len(df) * 0.75)
+#     test_size = len(df) - train_size
+#     train = df[0:train_size,:]
+#     test = df[train_size:len(df),:]
+#     #print("train size: {}, test size: {} ".format(len(train), len(test)))
 
 
-    time_stamp = 1
+#     time_stamp = 1
 
-    dataX = []
-    dataY = []
+#     dataX = []
+#     dataY = []
 
-    for i in range(len(train)-time_stamp-1):
-        a = train[i:(i+time_stamp), 0]
-        dataX.append(a)
-        dataY.append(train[i + time_stamp, 0])
+#     for i in range(len(train)-time_stamp-1):
+#         a = train[i:(i+time_stamp), 0]
+#         dataX.append(a)
+#         dataY.append(train[i + time_stamp, 0])
         
-    trainX = np.array(dataX)
-    trainY = np.array(dataY)  
+#     trainX = np.array(dataX)
+#     trainY = np.array(dataY)  
 
 
-    dataX = []
-    dataY = []
-    for i in range(len(test)-time_stamp-1):
-        a = test[i:(i+time_stamp), 0]
-        dataX.append(a)
-        dataY.append(test[i + time_stamp, 0])
-    testX = np.array(dataX)
-    testY = np.array(dataY)  
+#     dataX = []
+#     dataY = []
+#     for i in range(len(test)-time_stamp-1):
+#         a = test[i:(i+time_stamp), 0]
+#         dataX.append(a)
+#         dataY.append(test[i + time_stamp, 0])
+#     testX = np.array(dataX)
+#     testY = np.array(dataY)  
 
 
-    trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
-    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+#     trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
+#     testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
 
-    model = Sequential()
+#     model = Sequential()
 
-    model.add(LSTM(units=8,input_shape = (1, time_stamp)))
-    model.add(Dense(1))
+#     model.add(LSTM(units=8,input_shape = (1, time_stamp)))
+#     model.add(Dense(1))
 
-    model.compile(optimizer='adam',loss='mean_squared_error')
+#     model.compile(optimizer='adam',loss='mean_squared_error')
 
-    model.fit(trainX, trainY, epochs=10, batch_size=1,verbose=2)
+#     model.fit(trainX, trainY, epochs=10, batch_size=1,verbose=2)
 
 
-    trainPredict = model.predict(trainX)
-    testPredict = model.predict(testX)
+#     trainPredict = model.predict(trainX)
+#     testPredict = model.predict(testX)
 
-    # invert predictions
-    trainPredict = scaler.inverse_transform(trainPredict)
-    trainY = scaler.inverse_transform([trainY])
-    testPredict = scaler.inverse_transform(testPredict)
-    testY = scaler.inverse_transform([testY])
+#     # invert predictions
+#     trainPredict = scaler.inverse_transform(trainPredict)
+#     trainY = scaler.inverse_transform([trainY])
+#     testPredict = scaler.inverse_transform(testPredict)
+#     testY = scaler.inverse_transform([testY])
 
-    # calculate root mean squared error
-    trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
-    #print('Train Score: %.2f RMSE' % (trainScore))
-    testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
-    #print('Test Score: %.2f RMSE' % (testScore))
+#     # calculate root mean squared error
+#     trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
+#     #print('Train Score: %.2f RMSE' % (trainScore))
+#     testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
+#     #print('Test Score: %.2f RMSE' % (testScore))
 
-    # shifting train
-    trainPredictPlot = np.empty_like(df)
-    trainPredictPlot[:, :] = np.nan
-    trainPredictPlot[time_stamp:len(trainPredict)+time_stamp, :] = trainPredict
+#     # shifting train
+#     trainPredictPlot = np.empty_like(df)
+#     trainPredictPlot[:, :] = np.nan
+#     trainPredictPlot[time_stamp:len(trainPredict)+time_stamp, :] = trainPredict
 
-    # shifting test
-    testPredictPlot = np.empty_like(df)
-    testPredictPlot[:, :] = np.nan
-    testPredictPlot[len(trainPredict)+(time_stamp*2)+1:len(df)-1, :] = testPredict
+#     # shifting test
+#     testPredictPlot = np.empty_like(df)
+#     testPredictPlot[:, :] = np.nan
+#     testPredictPlot[len(trainPredict)+(time_stamp*2)+1:len(df)-1, :] = testPredict
 
-    # #print(trainPredictPlot)
-    # plt.plot(scaler.inverse_transform(df))
-    # plt.plot(trainPredictPlot)
-    # plt.plot(testPredictPlot)
-    # plt.draw()
-    # plt.show()
+#     # #print(trainPredictPlot)
+#     # plt.plot(scaler.inverse_transform(df))
+#     # plt.plot(trainPredictPlot)
+#     # plt.plot(testPredictPlot)
+#     # plt.draw()
+#     # plt.show()
 
 
 def predict():
