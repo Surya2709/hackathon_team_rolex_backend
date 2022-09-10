@@ -48,44 +48,44 @@ def getNearbyMarket():
         graph = [
         {
             "time" : "8:00",
-            "avg_price" : randint(40,70)
+            "avg_price" : float(randint(1700,1900))
         },
         {
             "time" : "9:00",
-            "avg_price" : randint(40,70),
+            "avg_price" : float(randint(1700,1900)),
         }, {
             "time" : "10:00",
-            "avg_price" : randint(40,70),
+            "avg_price" : float(randint(1700,1900)),
         }, {
             "time" : "11:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "time" : "12:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "time" : "1:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "time" : "2:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "time" : "3:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "date_time" : "4:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         },  {
             "time" : "5:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }, {
             "time" : "6:00",
-            "avg_price" : randint(40,70),
+            "avg_price" : float(randint(1700,1900)),
         }, {
             "time" : "7:00",
-            "avg_price" : randint(40,70),
+            "avg_price" : float(randint(1700,1900)),
         }, {
             "time" : "8:00",
-            "avg_price" :  randint(40,70),
+            "avg_price" :  float(randint(1700,1900)),
         }
         ]
 
