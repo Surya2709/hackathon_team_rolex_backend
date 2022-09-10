@@ -5,7 +5,7 @@ export FLASK_ENV=development
 export FLASK_APP=application.py
 flask run
 
- 
+
 dependency installation:
 
 sudo apt-get install libffi-dev gcc build-essential libssl-dev libffi-dev python3-dev  libpq-dev
