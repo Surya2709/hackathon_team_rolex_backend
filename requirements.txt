@@ -41,7 +41,7 @@ python-math>=0.0.1
 
 # Model -------------------------------------
 tensorboard>=2.4.1
-prophet>=1.1.1
+prophet
 
 # Plotting ------------------------------------
 seaborn>=0.11.0
