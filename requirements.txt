@@ -45,14 +45,14 @@ tensorboard>=2.4.1
 prophet>=1.1.1
 
 # Plotting ------------------------------------
-seaborn>=0.11.0
+# seaborn>=0.11.0
 matplotlib>=3.2.2
 plotly>=5.10.0
 ColorStr>=1.3
 
 # Export --------------------------------------
 scikit-learn>=1.1.2  # CoreML quantization
-tensorflow>=2.10.0  # TFLite export
-keras>=2.10.0
+# tensorflow>=2.10.0  # TFLite export
+# keras>=2.10.0
 openpyxl
 
