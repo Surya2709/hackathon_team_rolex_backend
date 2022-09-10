@@ -20,7 +20,7 @@ sales_api = Blueprint('sales', __name__, url_postfix='sales')
 @sales_api.route('/productSalesDetail', methods=['GET'])
 def productSalesDetail():
     res = {
-        "product_name": "Wheat",
+        "product_name": "Tomato",
         "avg_sale_price_lower": "155.",
         "avg_sale_price_upper": "155.",
         "last_sold_price": "167.50",
